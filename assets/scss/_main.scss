@@ -2,6 +2,10 @@
   margin: 0 auto;
   width: 80%;
   max-width: 1240px;
+
+  @media screen and (max-width: 799px) {
+    width: 100%;
+  }
 }
 
 .main {
@@ -13,7 +17,6 @@
   z-index: 0;
   padding-top: 4.5rem;
   
-
   &::after {
     position: absolute;
     content: ' ';
@@ -29,6 +32,98 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    
+    .menu {
+      display: none;
+      width: 25px;
+      height: 25px;
+      overflow: hidden;
+      position: relative;
+      transition: .2s ease-in-out;
+
+      &__line {
+        display: block;
+        background: var(--color-white);
+        height: 3px;
+        width: 25px;
+        margin-bottom: 5px;
+        transition: ease-in-out .2s;
+        transform: rotate(0deg);
+      }
+
+      /* Add X Animation on menu open */
+      &.open {
+        .menu__line:first-of-type {
+          position: absolute;
+          width: 100%; 
+          top: 10px;
+          left: 0;  
+          transform: rotate(-45deg);
+        }
+
+        .menu__line:nth-of-type(2) {
+          transform: translateX(-100%);
+          top: 14px;
+          position: absolute;
+        }
+
+        .menu__line:last-of-type {
+          position: absolute;
+          width: 100%; 
+          top: 10px;
+          left: 0;  
+          transform: rotate(45deg);        
+        }
+      }
+
+      @media screen and (max-width: 799px) {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
+    .header-nav {
+      @media screen and (max-width: 799px) {
+        display: none;
+      }      
+    }
+
+    &.open {
+      background: #000;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 100vw;
+      height: 100vh;
+      align-items: flex-start;
+      padding: 4.5rem 2rem;
+      flex-flow: row wrap;
+      transition: .2s ease-in-out;
+
+      .header-nav {
+        width: 100%;
+        display: flex;        
+        
+        ul {
+          display: flex;
+          flex-direction: column;
+          padding: 2rem 0;
+          
+          li {
+            text-transform: uppercase;
+            font-size: 2rem;
+            font-weight: 300;
+            font-family: $font-main;
+            margin: .5rem 0;
+          }
+        }
+      }
+    }
+
+    @media screen and (max-width: 799px) {
+      padding: 0 2rem;
+    }
   }
 
   &__hero {    
@@ -36,30 +131,59 @@
     display: flex;
     align-items: center;
 
+    &__container {      
+      border: 2px solid var(--color-white);
+      padding: 2rem 2.5rem;
+      max-width: 60%;
+      overflow: hidden;
+
+      @media screen and (max-width: 799px) {
+        width: unset;
+        max-width: unset;
+        min-width: 315px;
+        padding: 1.5rem 1rem;
+        margin: 0 auto;
+      }
+    }
+
     &__title {
       font-family: $font-main;
       text-transform: uppercase;
       color: var(--color-white);
-      border: 2px solid var(--color-white);
-      font-size: 5rem;
+      font-size: 4.5vw;
       font-weight: 300;
-      padding: 2rem 2.5rem;
-      max-width: 60%;
+
+      @media screen and (max-width: 799px) {
+        font-size: 2.5rem;
+      }
+    }
+
+    @media screen and (max-width: 799px) {
+      height: calc(100vh - 108px);
+      padding: 0 2rem;
     }
   }
 
   &__subhero {
-    height: 80vh;
+    height: 90vh;
     padding: 10rem 0;
     position: relative;
+    z-index: -1;
 
-    &__bgimg {
-      background: url('./../images/desktop/image-interactive.jpg');
-      background-repeat: no-repeat;
-      background-size: 100%;
+    &__bgimg {      
       width: 65%;
       height: 50vh;
       z-index: 0;
+
+      &__img {
+        width: 100%;
+        height: auto;
+      }
+
+      @media screen and (max-width: 799px) {
+        width: 100%;
+        margin-bottom: 5rem;
+      }
     }
 
     &__content {      
@@ -69,6 +193,12 @@
       position: absolute;
       bottom: 0;
       right: 0;
+
+      @media screen and (max-width: 799px) {
+        position: relative;
+        width: 100%;
+        padding: 0 1.5rem;
+      }
     }
 
     &__title {
@@ -76,6 +206,11 @@
       font-family: $font-main;
       text-transform: uppercase;
       font-weight: 300;
+
+      @media screen and (max-width: 799px) {
+        font-size: 2rem;
+        text-align: center;
+      }
     }
 
     &__text {
@@ -85,36 +220,73 @@
       color: var(--color-dark-gray);
       margin-top: 1rem;
       line-height: 1.5;
+
+      @media screen and (max-width: 799px) {        
+        text-align: center;
+      }
+    }
+
+    @media screen and (max-width: 799px) {
+      height: unset;
+      padding: 5rem 2rem;
+    }
+  }
+
+  @media screen and (max-width: 799px) {
+    background-position: center;
+    background-size: fit;
+    height: 100vh;
+
+    &::after {
+      height: 100vh;
     }
   }
 }
 
 .creations {
   margin-bottom: 10rem;
+  display: grid;
+  grid-template-areas: 
+    "headerTitle headerAction"
+    "gallery gallery";
+  grid-gap: 3rem;
+  margin-top: 5rem;
 
   &__header {
-    display: flex;
-    justify-content: space-between;
-    margin: 3rem 0;
-
     &__title {
       font-size: 2.5rem;
       font-family: $font-main;
       text-transform: uppercase;
       font-weight: 300;
+      grid-area: headerTitle;
+
+      @media screen and (max-width: 799px) {
+        text-align: center;
+      }
     }
 
-    &__action {
-      padding: 0.5rem 3rem;
-      border: 2px solid var(--color-very-dark-gray);
-      text-transform: uppercase;
-      letter-spacing: .2rem;
-      transition: background .2s ease-in-out;
+    &__action {      
+      grid-area: headerAction;
+      text-align: right;
 
-      &:hover {
-        color: var(--color-white);
-        background: var(--color-black);
-        border: 2px solid var(--color-black);
+      &__link {
+        padding: 0.5rem 3rem;
+        border: 2px solid var(--color-very-dark-gray);
+        text-transform: uppercase;
+        letter-spacing: .2rem;
+        transition: background .2s ease-in-out;
+
+        grid-area: headerAction;
+
+        &:hover {
+          color: var(--color-white);
+          background: var(--color-black);
+          border: 2px solid var(--color-black);
+        }
+      }
+
+      @media screen and (max-width: 799px) {
+        text-align: center;
       }
     }
   }
@@ -124,6 +296,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);    
     grid-gap: 1.75rem;
+    grid-area: gallery;
 
     &__card {
       position: relative;
@@ -131,16 +304,10 @@
       cursor: pointer;
       transition: all .3s ease-in-out;
       overflow: hidden;
-      height: 450px;
 
-      figure {
-        overflow: hidden;
-      }
-
-      img {
-        
+      img {        
         width: 100%;
-        height: auto;
+        height: 100%;
         object-fit: cover;
         transition: all .3s ease-in-out;
       }
@@ -184,7 +351,20 @@
         }        
       }
     }
+
+    @media screen and (max-width: 799px) {
+      grid-template-columns: 1fr; 
+    }
   }
+
+  @media screen and (max-width: 799px) {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    grid-template-areas: 
+    "headerTitle"
+    "gallery"
+    "headerAction";
+  }  
 }
 
 nav {
@@ -223,7 +403,7 @@ nav {
         }
       }
     }
-  }
+  }  
 }
 
 .footer {
@@ -232,25 +412,66 @@ nav {
   padding: 3rem 0;
 
   &__main {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-areas: 
+      "logo social"
+      "footerNav copyright";
 
     &__socials {
+      grid-area: social;
       display: flex;
+      justify-content: flex-end;
 
       figure {
         width: 2.5rem;
+        grid-area: logo;
+      }
+
+      @media screen and (max-width: 799px) {
+        justify-content: center;
+        margin: 1rem auto;
+      }
+    }
+
+    @media screen and (max-width: 799px) {
+      grid-template-areas: 
+        "logo"
+        "footerNav"
+        "social"
+        "copyright";
+    }
+  }
+
+  figure.logo {
+    @media screen and (max-width: 799px) {
+      text-align: center;
+    }
+  }
+
+  nav {
+    grid-area: footerNav;
+    align-self: center;
+    padding-top: .5rem;
+
+    @media screen and (max-width: 799px) {
+      ul {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        margin: 1rem auto;
       }
     }
   }
 
-  &__sub {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 1rem; 
+  .copyright {
+    color: var(--color-dark-gray);
+    grid-area: copyright;
+    text-align: right;
+    padding: .5rem;
 
-    .copyright {
-      color: var(--color-dark-gray);
+    @media screen and (max-width: 799px) {
+      text-align: center;
     }
   }
 }
